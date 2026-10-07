@@ -11,7 +11,23 @@ What we know about FSOG from public coverage:
 - It has grown into a **queer collective** that runs **community and singles events** (covered by Man's World India), and it has been featured by Homegrown, Outlook Traveller and Elle India.
 - It posts on Instagram at [@50shadesofgayofficial](https://www.instagram.com/50shadesofgayofficial/).
 
-> Still to confirm: Instagram content (bio, follower count, recurring event names, cities, highlights). Instagram couldn't be fetched from the build environment, so this needs the client or screenshots.
+### Instagram (first pass, 7 October 2026, unverified)
+
+Instagram returns a login shell to plain requests, so these come from a web-fetch summary, not from viewing the profile in a browser. Check them in Chrome before quoting them to the client.
+
+- **Bio (truncated):** "Queer stories across South Asia & beyond. Asia's only LGBTQIA+ archive of queer history, culture & community. Managed…"
+- **Followers:** about 101K. **Following:** 369. Reported as **verified**.
+- **Link in bio:** fiftyshadesofgay.org
+- **Highlights** (reported as 11, 8 named): BTS@FSOG, Mental Health, HIV 101, 🌼FUN🌼, 🌼Bisexual🌼, 🌼Aromantics🌼, 🌼Asexuality🌼, GUESSING GAMES.
+- **Posts:** mostly carousels, still posting in September and October 2026.
+
+What this suggests (to confirm):
+
+- FSOG already calls itself an **archive** in its bio, so The Living Archive matches how it presents itself. Option A still holds, but Stories may deserve more weight than Events on the home page.
+- Several highlights are **explainers** (mental health, HIV, bi, aro and ace identities). That is ready-made material for **Resources**, which could become a "Learn" hub rather than only a list of helplines.
+- **No event highlight came through.** It is unclear whether events still run regularly, so ask the client before giving Events the home page's second slot.
+
+> Still to collect: recurring event names, cities, how often events run, tone of captions, and visual style (grid colours, photography, type on posts). These need the profile opened in Chrome or screenshots from the client.
 
 ## The core shift
 
@@ -62,16 +78,27 @@ Subscribe (newsletter)
 Contact
 ```
 
-## Home page, section by section
+## Home page, section by section (draft, waiting for OK before building)
 
-1. **Manifesto hero.** One line on who FSOG is ("Celebrating queer India since 2016"), with a portrait mosaic from the photo series instead of the single archive image.
-2. **What we do.** Three or four blocks, each in a palette colour (powder, yellow, slate, red), reusing the stacked colour-block pattern from "Inside Edition 01": Stories, Events, Community, Resources.
-3. **Upcoming events.** The next two or three events with date, city and an RSVP button. If nothing is scheduled, show "Get notified".
-4. **From The Living Archive.** A compact version of the existing "latest edition" card, with a link into the archive and its masthead.
-5. **Faces of FSOG.** A portrait wall or Instagram feed, as social proof and a nod to the 2016 origin.
-6. **Numbers and press.** Years running, events hosted, people reached, and logos from Elle, Homegrown, Outlook Traveller and Man's World.
-7. **Partner with us.** A short pitch for brands and venues, aimed at commercial and sponsorship enquiries.
-8. **Subscribe.** The existing slate block, reworded to cover the newsletter *and* event alerts.
+0. **Header.** Plain FSOG wordmark (placeholder until a plain logo arrives). About · Stories · Events · Get involved · Resources · Contact, plus a red Subscribe button. No newspaper masthead.
+1. **Hero.** "Celebrating queer India since 2016" (or "South Asia", see below) beside a mosaic of 6–9 portraits in palette-coloured frames, all marked as placeholders. Buttons: *Read the stories* and *Get involved*.
+2. **Our story strip.** Three steps: 2016 photo series → collective → The Living Archive. Links to About.
+3. **What we do.** The staggered colour blocks from "Inside Edition 01": Stories (powder), Events (yellow), Get involved (red), Resources (slate).
+4. **From The Living Archive.** Compact latest-edition card with a small masthead badge. The only place the masthead style appears outside the archive.
+5. **Events.** Next 2–3 events with date, city and RSVP, or "Get notified" when nothing is scheduled.
+6. **Learn.** Explainer cards drawn from the Instagram highlights (HIV 101, Mental health, Bi, Ace, Aro).
+7. **Faces of FSOG.** Portrait wall or Instagram feed. Consented images only, with a note saying so.
+8. **Numbers and press.** Since 2016, about 101K followers, and the Elle, Homegrown, Outlook Traveller and Man's World logos.
+9. **Get involved.** Share your story (anonymous option), volunteer, partner with us.
+10. **Subscribe.** The slate block, with two lists (the archive and event alerts) via Hostinger Reach.
+11. **Footer.** Navy, with privacy policy and takedown request links.
+
+Open decisions (proposed defaults in brackets):
+
+- Events in slot 5, or lower until the client confirms they run regularly? [slot 5]
+- Call the section "Resources" or "Learn"? [Learn]
+- Red is reserved for primary buttons. Can Get involved use it as its section colour? [yes]
+- Hero wording: "queer India" or "South Asia" (as in the Instagram bio)? [South Asia]
 
 ## Keep the design system, broaden its use
 
