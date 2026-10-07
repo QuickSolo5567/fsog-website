@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edition 01: The records that remain | The Living Archive by FSOG</title>
+<meta name="description" content="Edition 01 of The Living Archive by Fifty Shades of Gay. Four stories about queer lives, cultural memory, photographs, places and the details history did not keep easily.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  /* ---------- Newspaper front: masthead ---------- */
+  .front {
+    margin-top: clamp(20px, 3vw, 36px);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .front-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr 180px;
+    align-items: stretch;
+  }
+  .front-side {
+    padding: 22px 20px 22px 0;
+    border-right: 1px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+  .front-side.right { border-right: 0; border-left: 1px solid var(--ink); padding: 22px 0 22px 20px; text-align: right; align-items: flex-end; }
+  .front-side .big { font-family: var(--serif); font-size: 30px; line-height: 1; }
+  .front-side .small { font-size: 14px; color: var(--ink-soft); line-height: 1.4; }
+  .front-centre { text-align: center; padding: 22px 16px; }
+  .front-centre .kicker { letter-spacing: .5em; }
+  .front-name {
+    margin: 6px 0 0;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(38px, 5.8vw, 84px);
+    line-height: .98;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .front-by { margin: 8px 0 0; font-family: var(--serif); font-style: italic; font-size: 18px; }
+
+  /* edition title block under the masthead */
+  .edition-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: end;
+    padding-block: clamp(32px, 5vw, 56px) 26px;
+    border-bottom: 3px solid var(--ink);
+  }
+  .edition-head h1 {
+    margin: 6px 0 0;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(42px, 6vw, 78px);
+    line-height: 1;
+    letter-spacing: -.015em;
+  }
+  .edition-head .desc { margin: 14px 0 0; font-size: 19px; color: var(--ink-soft); max-width: 52ch; }
+  .edition-head-actions { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; justify-content: flex-end; }
+
+  /* three column "rail" like the newspaper's service strip */
+  .rail {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-bottom: 1px solid var(--ink);
+  }
+  .rail div { padding: 16px 20px; border-right: 1px solid var(--rule); text-align: center; }
+  .rail div:last-child { border-right: 0; }
+  .rail .label { display: block; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 4px 0; margin-bottom: 10px; }
+  .rail p { margin: 0; font-family: var(--serif); font-style: italic; font-size: 16px; line-height: 1.4; color: var(--ink-soft); }
+
+  /* ---------- Story carousel ---------- */
+  .carousel { margin-top: clamp(32px, 5vw, 56px); }
+  .carousel-viewport { overflow: hidden; border: 2px solid var(--ink); }
+  .carousel-track { display: flex; transition: transform .45s ease; }
+  .slide {
+    flex: 0 0 100%;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    min-height: 440px;
+  }
+  .slide-media { position: relative; }
+  .slide-media .img-placeholder { position: absolute; inset: 0; }
+  .slide-num {
+    position: absolute; left: 24px; bottom: 18px;
+    font-weight: 700; font-size: clamp(72px, 10vw, 132px); line-height: 1; color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,.35);
+  }
+  .slide-body { padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: 14px; justify-content: center; }
+  .slide-body h2 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(28px, 3.4vw, 42px); line-height: 1.08; }
+  .slide-body p { margin: 0; font-size: 18px; }
+  .slide-body .btn { align-self: flex-start; margin-top: 8px; }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 14px;
+  }
+  .carousel-arrows { display: flex; gap: 8px; }
+  .carousel-arrows button {
+    width: 48px; height: 48px;
+    display: grid; place-items: center;
+    background: var(--paper); border: 2px solid var(--ink); cursor: pointer;
+  }
+  .carousel-arrows button:hover { background: var(--ink); color: var(--paper); }
+  .carousel-arrows button:disabled { opacity: .35; cursor: default; background: var(--paper); color: var(--ink); }
+  .carousel-dots { display: flex; gap: 6px; }
+  .carousel-dots button {
+    min-width: 44px; height: 44px; padding: 0 8px;
+    font-family: var(--sans); font-weight: 700; font-size: 14px;
+    background: transparent; border: 0; border-bottom: 3px solid var(--rule); cursor: pointer;
+  }
+  .carousel-dots button[aria-current="true"] { border-bottom-color: var(--ink); }
+
+  /* ---------- Editor's note + contents ---------- */
+  .note-contents {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 0;
+    border-top: 3px solid var(--ink);
+  }
+  .editors-note { padding: 28px 40px 28px 0; border-right: 1px solid var(--rule); }
+  .editors-note h2, .contents h2 { margin: 0 0 18px; }
+  .editors-note p { margin: 0 0 16px; font-family: var(--serif); font-size: 21px; line-height: 1.55; }
+  .editors-note .sign { font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--ink-soft); }
+  .contents { padding: 28px 0 28px 40px; }
+  .contents ol { list-style: none; margin: 0; padding: 0; }
+  .contents li { border-top: 1px solid var(--rule); }
+  .contents li:last-child { border-bottom: 1px solid var(--rule); }
+  .contents a {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    text-decoration: none;
+  }
+  .contents .n { font-weight: 700; font-size: 34px; line-height: 1; }
+  .contents h3 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: 23px; line-height: 1.2; }
+  .contents p { margin: 4px 0 0; color: var(--ink-soft); font-size: 16px; }
+  .contents a:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+
+  /* ---------- Four story blocks ---------- */
+  .stories { display: grid; gap: clamp(20px, 3vw, 32px); }
+  .story-label { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+  .story-block h3 { margin: 0; font-family: var(--serif); font-weight: 500; line-height: 1.06; }
+  .story-block .sub { margin: 0; font-size: 18px; }
+  .story-foot { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-top: auto; }
+  .big-num { font-weight: 700; line-height: .85; letter-spacing: -.03em; }
+
+  /* 01: large feature (newspaper lead) */
+  .sb-feature { display: grid; grid-template-columns: .85fr 1.15fr; border: 2px solid var(--ink); background: #fff; }
+  .sb-feature .text { padding: clamp(24px, 4vw, 44px); display: flex; flex-direction: column; gap: 14px; }
+  .sb-feature h3 { font-size: clamp(36px, 4.6vw, 60px); }
+  .sb-feature .media { position: relative; min-height: 420px; }
+  .sb-feature .img-placeholder { position: absolute; inset: 0; }
+  .sb-feature .big-num { font-size: clamp(72px, 9vw, 120px); }
+
+  /* 02: broad colour panel with an image inset */
+  .sb-panel { background: var(--powder); padding: clamp(24px, 4vw, 48px); display: grid; grid-template-columns: 1.3fr .7fr; gap: clamp(20px, 4vw, 48px); align-items: center; }
+  .sb-panel .text { display: flex; flex-direction: column; gap: 14px; min-height: 100%; }
+  .sb-panel h3 { font-size: clamp(32px, 3.8vw, 48px); }
+  .sb-panel .big-num { font-size: clamp(64px, 8vw, 104px); }
+  .sb-panel figure { margin: 0; }
+  .sb-panel .img-placeholder { aspect-ratio: 4 / 5; border: 2px solid var(--ink); }
+
+  /* 03 and 04 side by side on desktop */
+  .sb-pair { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(20px, 3vw, 32px); }
+
+  /* 03: image-led */
+  .sb-image { display: flex; flex-direction: column; gap: 16px; }
+  .sb-image .media { position: relative; aspect-ratio: 16 / 11; }
+  .sb-image .img-placeholder { position: absolute; inset: 0; }
+  .sb-image .tab { position: absolute; left: 0; top: 0; background: var(--yellow); padding: 10px 16px 6px; }
+  .sb-image .big-num { font-size: 64px; }
+  .sb-image h3 { font-size: clamp(28px, 3vw, 38px); }
+
+  /* 04: darker, reflective closing story */
+  .sb-dark { background: var(--navy); color: #f2f4f5; padding: clamp(24px, 4vw, 40px); display: flex; flex-direction: column; gap: 14px; }
+  .sb-dark .big-num { font-size: clamp(64px, 8vw, 104px); color: var(--powder); }
+  .sb-dark h3 { font-size: clamp(28px, 3vw, 38px); }
+  .sb-dark .img-placeholder { aspect-ratio: 16 / 9; background-color: #2b3f4d; color: #c9d4db; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.07) 0 2px, transparent 2px 12px); }
+  .sb-dark .credit { color: #b8c5cd; }
+  .sb-dark .tags li { color: #f2f4f5; }
+  .sb-dark .text-link { color: #fff; }
+
+  /* ---------- Community prompt + edition discussion ---------- */
+  .prompt {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 5vw, 64px);
+    border-top: 3px solid var(--ink);
+    padding-top: 28px;
+  }
+  .prompt h2 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(32px, 4vw, 50px); line-height: 1.06; text-wrap: balance; }
+  .prompt p { margin: 16px 0 0; font-size: 18px; }
+  .prompt .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+  .thread-mini { background: var(--paper-deep); padding: 24px; }
+  .thread-mini h3 { margin: 0 0 14px; }
+  .mini-comment { background: var(--paper); padding: 16px; margin-bottom: 12px; border-left: 4px solid var(--slate); }
+  .mini-comment .who { font-weight: 700; font-size: 15px; }
+  .mini-comment .badge { display: inline-block; margin-left: 6px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--slate); color: #fff; padding: 2px 6px; }
+  .mini-comment p { margin: 6px 0 0; font-size: 16px; }
+
+  /* ---------- Edition navigation ---------- */
+  .edition-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 2px solid var(--ink);
+  }
+  .edition-nav > * { padding: 22px 24px; border-right: 2px solid var(--ink); text-decoration: none; display: flex; flex-direction: column; gap: 6px; }
+  .edition-nav > *:last-child { border-right: 0; }
+  .edition-nav .t { font-family: var(--serif); font-size: 24px; line-height: 1.15; }
+  .edition-nav .disabled { color: var(--muted); }
+  .edition-nav a:hover { background: var(--yellow); }
+  .edition-sub { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; background: var(--slate); color: #fff; padding: 24px 28px; }
+  .edition-sub p { margin: 0; font-family: var(--serif); font-size: 26px; line-height: 1.2; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .front-grid { grid-template-columns: 1fr 1fr; }
+    .front-centre { grid-column: 1 / -1; order: -1; border-bottom: 1px solid var(--ink); }
+    .front-side { padding: 16px 14px 16px 0; }
+    .front-side.right { padding: 16px 0 16px 14px; }
+    .edition-head { grid-template-columns: 1fr; }
+    .edition-head-actions { justify-content: flex-start; }
+    .rail { grid-template-columns: 1fr; }
+    .rail div { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .slide { grid-template-columns: 1fr; min-height: 0; }
+    .slide-media { min-height: 240px; }
+    .note-contents { grid-template-columns: 1fr; }
+    .editors-note { padding: 24px 0; border-right: 0; border-bottom: 1px solid var(--rule); }
+    .contents { padding: 24px 0 0; }
+    .sb-feature, .sb-panel, .sb-pair, .prompt { grid-template-columns: 1fr; }
+    .sb-feature .media { min-height: 260px; order: -1; }
+    .edition-nav { grid-template-columns: 1fr; }
+    .edition-nav > * { border-right: 0; border-bottom: 2px solid var(--ink); }
+    .edition-nav > *:last-child { border-bottom: 0; }
+  }
+  @media (max-width: 520px) {
+    .front-side .big { font-size: 24px; }
+    .contents a { grid-template-columns: 48px 1fr; }
+    .contents .n { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div style="background:#111;color:#ffd052;font:600 13px/1.4 'Instrument Sans',Arial,sans-serif;text-align:center;padding:8px 16px">Design preview for The Living Archive by Fifty Shades of Gay. Story content is placeholder. Not the live site.</div>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="The Living Archive by Fifty Shades of Gay, home">
+      <img src="assets/living-archive-logo.png" width="600" height="304" alt="FSOG | The Living Archive by Fifty Shades of Gay">
+    </a>
+    <nav class="primary-nav" aria-label="Main">
+      <ul>
+        <li><a href="index.html">The Living Archive</a></li>
+        <li><a href="index.html#archive" aria-current="page">Archive</a></li>
+        <li><a href="index.html#about">About FSOG</a></li>
+        <li class="has-dropdown">
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="get-involved">
+            Get Involved
+            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+          <ul class="dropdown" id="get-involved" hidden>
+            <li><a href="#">Suggest a story</a></li>
+            <li><a href="#">Collaborate with us</a></li>
+            <li><a href="#">Events, talks and workshops</a></li>
+            <li><a href="#">Support the archive</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Resources</a></li>
+        <li><a class="nav-subscribe" href="index.html#subscribe">Subscribe</a></li>
+      </ul>
+    </nav>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <div class="mobile-menu-top">
+    <span class="label">The Living Archive</span>
+    <button class="menu-button menu-close" type="button" style="display:inline-flex">Close</button>
+  </div>
+  <ul>
+    <li><a href="index.html">The Living Archive</a></li>
+    <li><a href="index.html#archive">Archive</a></li>
+    <li><a href="index.html#about">About FSOG</a></li>
+    <li><span class="menu-group">Get Involved</span></li>
+    <li class="sub"><a href="#">Suggest a story</a></li>
+    <li class="sub"><a href="#">Collaborate with us</a></li>
+    <li class="sub"><a href="#">Events, talks and workshops</a></li>
+    <li class="sub"><a href="#">Support the archive</a></li>
+    <li><a href="#">Resources</a></li>
+  </ul>
+  <a class="btn btn-primary" href="index.html#subscribe">Subscribe free</a>
+</div>
+
+<main id="main">
+  <div class="wrap">
+
+    <!-- Masthead, newspaper front style -->
+    <div class="front">
+      <div class="front-grid">
+        <div class="front-side">
+          <span class="label">No. 01</span>
+          <span class="big">Edition 01</span>
+          <span class="small">3 October 2026</span>
+        </div>
+        <div class="front-centre">
+          <span class="label kicker">Fifty Shades of Gay</span>
+          <p class="front-name">The Living Archive</p>
+          <p class="front-by">By Fifty Shades of Gay</p>
+        </div>
+        <div class="front-side right">
+          <span class="label">Free · Fortnightly</span>
+          <span class="small">fiftyshadesofgay.org/tla1</span>
+          <span class="big" style="color:var(--red)"># 001</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edition title -->
+    <div class="edition-head">
+      <div>
+        <span class="label">Edition 01 · Published 3 October 2026</span>
+        <h1>The records that remain</h1>
+        <p class="desc">A fortnightly publication uncovering LGBTQIA+ culture, art, history and memory.</p>
+      </div>
+      <div class="edition-head-actions">
+        <a class="text-link" href="index.html#archive">Archive</a>
+        <a class="text-link" href="index.html#about">About FSOG</a>
+        <a class="btn btn-primary" href="index.html#subscribe">Subscribe free</a>
+      </div>
+    </div>
+
+    <div class="rail">
+      <div><span class="label">In this edition</span><p>Four stories, researched and kept alive.</p></div>
+      <div><span class="label">How to read</span><p>Start with the editor's note, or go straight to a story.</p></div>
+      <div><span class="label">Add to the record</span><p>Every story has a moderated conversation beneath it.</p></div>
+    </div>
+
+    <!-- Story carousel: no autoplay, arrows, numbered indicators, keys and swipe -->
+    <section class="carousel" aria-roledescription="carousel" aria-label="Stories in Edition 01">
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <div class="slide" role="group" aria-roledescription="slide" aria-label="Story 1 of 4">
+            <div class="slide-media"><div class="img-placeholder">Story 01 image</div><span class="slide-num" aria-hidden="true">01</span></div>
+            <div class="slide-body c-powder">
+              <span class="label">Story 01 · Theme · Place</span>
+              <h2>Story one headline goes here</h2>
+              <p>A short description of the first story, one or two sentences.</p>
+              <a class="btn btn-ghost" href="story.html">Read story 01</a>
+            </div>
+          </div>
+          <div class="slide" role="group" aria-roledescription="slide" aria-label="Story 2 of 4">
+            <div class="slide-media"><div class="img-placeholder">Story 02 image</div><span class="slide-num" aria-hidden="true">02</span></div>
+            <div class="slide-body c-yellow">
+              <span class="label">Story 02 · Theme · Place</span>
+              <h2>Story two headline goes here</h2>
+              <p>A short description of the second story, one or two sentences.</p>
+              <a class="btn btn-ghost" href="story.html">Read story 02</a>
+            </div>
+          </div>
+          <div class="slide" role="group" aria-roledescription="slide" aria-label="Story 3 of 4">
+            <div class="slide-media"><div class="img-placeholder">Story 03 image</div><span class="slide-num" aria-hidden="true">03</span></div>
+            <div class="slide-body c-slate">
+              <span class="label">Story 03 · Theme · Place</span>
+              <h2>Story three headline goes here</h2>
+              <p>A short description of the third story, one or two sentences.</p>
+              <a class="btn btn-on-dark" href="story.html">Read story 03</a>
+            </div>
+          </div>
+          <div class="slide" role="group" aria-roledescription="slide" aria-label="Story 4 of 4">
+            <div class="slide-media"><div class="img-placeholder">Story 04 image</div><span class="slide-num" aria-hidden="true">04</span></div>
+            <div class="slide-body c-red">
+              <span class="label">Story 04 · Theme · Place</span>
+              <h2>Story four headline goes here</h2>
+              <p>A short description of the fourth story, one or two sentences.</p>
+              <a class="btn btn-ghost" href="story.html">Read story 04</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <div class="carousel-dots" role="group" aria-label="Choose a story">
+          <button type="button" aria-label="Story 01" aria-current="true">01</button>
+          <button type="button" aria-label="Story 02">02</button>
+          <button type="button" aria-label="Story 03">03</button>
+          <button type="button" aria-label="Story 04">04</button>
+        </div>
+        <div class="carousel-arrows">
+          <button type="button" class="prev" aria-label="Previous story">
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M11 3L5 9l6 6" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>
+          </button>
+          <button type="button" class="next" aria-label="Next story">
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M7 3l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Editor's note + contents -->
+  <section class="section" aria-label="Editor's note and contents">
+    <div class="wrap"><div class="note-contents">
+      <div class="editors-note">
+        <h2 class="label">Editor's note <span class="placeholder-flag">Draft from brief</span></h2>
+        <p>This edition begins with a question that sits at the centre of every archive: what survives, who gets named and what disappears when no one is left to keep a record?</p>
+        <p>Across four stories, we return to lives, places and objects that have carried queer memory forward in unexpected ways.</p>
+        <p class="sign">The editors, Fifty Shades of Gay</p>
+      </div>
+      <div class="contents">
+        <h2 class="label">Contents</h2>
+        <ol>
+          <li><a href="story.html"><span class="n">01</span><div><h3>Story one headline goes here</h3><p>Two-line editorial summary of the first story.</p></div></a></li>
+          <li><a href="story.html"><span class="n">02</span><div><h3>Story two headline goes here</h3><p>Two-line editorial summary of the second story.</p></div></a></li>
+          <li><a href="story.html"><span class="n">03</span><div><h3>Story three headline goes here</h3><p>Two-line editorial summary of the third story.</p></div></a></li>
+          <li><a href="story.html"><span class="n">04</span><div><h3>Story four headline goes here</h3><p>Two-line editorial summary of the fourth story.</p></div></a></li>
+        </ol>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- Four story blocks -->
+  <section class="section" style="padding-top:0" aria-labelledby="stories-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-title" id="stories-title">The four stories</h2>
+        <span class="placeholder-flag">Placeholder stories</span>
+      </div>
+
+      <div class="stories">
+        <!-- 01: large feature -->
+        <article class="story-block sb-feature">
+          <div class="text">
+            <span class="big-num" aria-hidden="true">01</span>
+            <div class="story-label"><span class="label">Story 01</span><span class="label" style="color:var(--muted)">Theme · Place</span></div>
+            <h3>Story one headline goes here</h3>
+            <p class="sub">The subtitle of the lead story: what it reveals and why it matters, in a sentence.</p>
+            <ul class="tags"><li>Tag</li><li>Tag</li></ul>
+            <div class="story-foot"><span class="label">8 min read</span><a class="btn btn-primary" href="story.html">Read story 01</a></div>
+          </div>
+          <figure class="media" style="margin:0">
+            <div class="img-placeholder">Lead story image</div>
+          </figure>
+        </article>
+        <p class="credit" style="margin-top:-18px">Image: credit line for story 01.</p>
+
+        <!-- 02: broad colour panel, image inset -->
+        <article class="story-block sb-panel">
+          <div class="text">
+            <span class="big-num" aria-hidden="true">02</span>
+            <div class="story-label"><span class="label">Story 02 · Theme · Place</span></div>
+            <h3>Story two headline goes here</h3>
+            <p class="sub">The subtitle of the second story, in a sentence.</p>
+            <ul class="tags"><li>Tag</li><li>Tag</li></ul>
+            <div class="story-foot"><span class="label">6 min read</span><a class="btn btn-ghost" href="story.html">Read story 02</a></div>
+          </div>
+          <figure style="margin:0">
+            <div class="img-placeholder">Inset image</div>
+            <figcaption class="credit" style="color:var(--ink)">Image: credit line for story 02.</figcaption>
+          </figure>
+        </article>
+
+        <div class="sb-pair">
+          <!-- 03: image-led -->
+          <article class="story-block sb-image">
+            <figure class="media" style="margin:0">
+              <div class="img-placeholder">Story 03 image</div>
+              <span class="tab"><span class="big-num">03</span></span>
+            </figure>
+            <p class="credit" style="margin:0">Image: credit line for story 03.</p>
+            <div class="story-label"><span class="label">Story 03 · Theme · Place</span></div>
+            <h3>Story three headline goes here</h3>
+            <p class="sub">The subtitle of the third story, in a sentence.</p>
+            <div class="story-foot"><ul class="tags"><li>Tag</li><li>Tag</li></ul><span class="label">7 min read</span><a class="text-link" href="story.html">Read story 03</a></div>
+          </article>
+
+          <!-- 04: darker, reflective -->
+          <article class="story-block sb-dark">
+            <span class="big-num" aria-hidden="true">04</span>
+            <div class="story-label"><span class="label">Story 04 · Theme · Place</span></div>
+            <h3>Story four headline goes here</h3>
+            <p class="sub">The subtitle of the closing story, in a sentence.</p>
+            <div class="img-placeholder">Story 04 image</div>
+            <p class="credit" style="margin:0">Image: credit line for story 04.</p>
+            <div class="story-foot"><ul class="tags"><li>Tag</li><li>Tag</li></ul><span class="label">9 min read</span><a class="text-link" href="story.html">Read story 04</a></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community prompt + edition-wide note -->
+  <section class="section" style="padding-top:0" aria-labelledby="prompt-title">
+    <div class="wrap"><div class="prompt">
+      <div>
+        <h2 id="prompt-title">What does this edition make you remember?</h2>
+        <p>A person, a place, a photograph, a publication or a story may be missing from the record. Join the conversation, or share it privately with the editorial team.</p>
+        <div class="actions">
+          <a class="btn btn-ghost" href="#edition-thread">Discuss this edition</a>
+          <a class="btn btn-primary" href="#">Suggest a story privately</a>
+        </div>
+      </div>
+      <div class="thread-mini" id="edition-thread">
+        <h3 class="label">A note on this edition <span class="placeholder-flag">Sample</span></h3>
+        <div class="mini-comment">
+          <span class="who">FSOG Editorial</span><span class="badge">Pinned</span>
+          <p>Our question for this edition will be pinned here by the editorial team.</p>
+        </div>
+        <div class="mini-comment" style="border-left-color:var(--rule)">
+          <span class="who">A reader's chosen name</span>
+          <p>Reader comments appear here once approved by a moderator.</p>
+        </div>
+        <a class="text-link" href="story.html#conversation">Join the conversation</a>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- Edition navigation -->
+  <section class="section" style="padding-top:0" aria-label="Edition navigation">
+    <div class="wrap">
+      <nav class="edition-nav" aria-label="Editions">
+        <span class="disabled"><span class="label">Previous edition</span><span class="t">This is the first edition</span></span>
+        <a href="index.html#archive"><span class="label">Archive index</span><span class="t">Every edition, kept in public view</span></a>
+        <span class="disabled"><span class="label">Next edition</span><span class="t">Edition 02, in two weeks</span></span>
+      </nav>
+      <div class="edition-sub">
+        <p>Receive Edition 02 in your inbox.</p>
+        <a class="btn btn-primary" href="index.html#subscribe">Subscribe free</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="footer-mast">The Living Archive</p>
+        <p class="footer-line">Built to keep queer stories in public memory.</p>
+      </div>
+      <div class="footer-col">
+        <h2 class="label">Read</h2>
+        <ul>
+          <li><a href="index.html">The Living Archive</a></li>
+          <li><a href="index.html#archive">Archive</a></li>
+          <li><a href="index.html#about">About FSOG</a></li>
+          <li><a href="index.html#subscribe">Subscribe</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2 class="label">Get involved</h2>
+        <ul>
+          <li><a href="#">Suggest a story</a></li>
+          <li><a href="#">Collaborate</a></li>
+          <li><a href="#">Resources</a></li>
+          <li><a href="#">Support the archive</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2 class="label">Standards</h2>
+        <ul>
+          <li><a href="#">Community guidelines</a></li>
+          <li><a href="#">Editorial standards</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="https://www.instagram.com/50shadesofgayofficial/" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Fifty Shades of Gay</span>
+      <span>fiftyshadesofgay.org</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+  // Edition carousel: no autoplay; arrows, numbered indicators, arrow keys and swipe.
+  (function () {
+    var root = document.querySelector('.carousel');
+    var track = root.querySelector('.carousel-track');
+    var slides = root.querySelectorAll('.slide');
+    var dots = root.querySelectorAll('.carousel-dots button');
+    var prev = root.querySelector('.prev');
+    var next = root.querySelector('.next');
+    var index = 0;
+
+    function go(i) {
+      index = Math.max(0, Math.min(slides.length - 1, i));
+      track.style.transform = 'translateX(' + (-100 * index) + '%)';
+      slides.forEach(function (s, n) {
+        s.setAttribute('aria-hidden', n === index ? 'false' : 'true');
+        s.querySelectorAll('a').forEach(function (a) { a.tabIndex = n === index ? 0 : -1; });
+      });
+      dots.forEach(function (d, n) { d.setAttribute('aria-current', n === index ? 'true' : 'false'); });
+      prev.disabled = index === 0;
+      next.disabled = index === slides.length - 1;
+    }
+
+    prev.addEventListener('click', function () { go(index - 1); });
+    next.addEventListener('click', function () { go(index + 1); });
+    dots.forEach(function (d, n) { d.addEventListener('click', function () { go(n); }); });
+
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') go(index - 1);
+      if (e.key === 'ArrowRight') go(index + 1);
+    });
+
+    var startX = null;
+    track.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', function (e) {
+      if (startX === null) return;
+      var dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 50) go(index + (dx < 0 ? 1 : -1));
+      startX = null;
+    });
+
+    go(0);
+  })();
+</script>
+</body>
+</html>

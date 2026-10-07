@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Story one headline | Edition 01 | The Living Archive by FSOG</title>
+<meta name="description" content="Story 01 of Edition 01 of The Living Archive by Fifty Shades of Gay.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  /* darker red for text on paper; the brand red-orange is too light for running text */
+  :root { --red-text: #b8321f; --body-size: 20px; }
+
+  .progress {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 70;
+    height: 4px;
+    width: 0;
+    background: var(--red);
+  }
+
+  /* ---------- Story opening ---------- */
+  .story-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: clamp(24px, 4vw, 40px);
+  }
+  .story-top .label { color: var(--red-text); }
+
+  .opening {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: clamp(24px, 4vw, 56px);
+    align-items: end;
+    margin-top: 18px;
+  }
+  .opening figure { margin: 0; }
+  .opening .img-placeholder { aspect-ratio: 4 / 5; }
+
+  .opening h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(42px, 6vw, 82px);
+    line-height: 1;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+  }
+  .standfirst {
+    margin: 26px 0 0;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: clamp(19px, 1.9vw, 23px);
+    line-height: 1.45;
+    color: var(--red-text);
+    max-width: 40ch;
+  }
+  .byline {
+    margin-top: 26px;
+    padding-top: 16px;
+    border-top: 1px solid var(--ink);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    font-size: 15px;
+  }
+  .byline strong { font-weight: 700; }
+  .byline .meta { color: var(--ink-soft); }
+
+  /* ---------- Body with reading tools ---------- */
+  .reading {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 700px) 1fr;
+    gap: clamp(24px, 4vw, 56px);
+    padding-block: clamp(48px, 7vw, 88px) 32px;
+  }
+
+  .tools {
+    position: sticky;
+    top: 104px;
+    align-self: start;
+    display: grid;
+    gap: 6px;
+    font-size: 15px;
+  }
+  .tools .label { margin-bottom: 6px; color: var(--muted); }
+  .tools a,
+  .tools button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 12px;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    text-decoration: none;
+    color: var(--ink);
+    background: transparent;
+    border: 1.5px solid var(--rule);
+    cursor: pointer;
+  }
+  .tools a:hover,
+  .tools button:hover { border-color: var(--ink); }
+  .tools button[aria-pressed="true"] { background: var(--yellow); border-color: var(--ink); }
+  .size-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .size-row button { justify-content: center; }
+  .tools .status { font-size: 13px; color: var(--muted); min-height: 1.2em; margin: 0; }
+
+  .tools-mobile { display: none; }
+
+  .article { font-size: var(--body-size); line-height: 1.7; }
+  .article > p { margin: 0 0 1.1em; }
+  .article > p:first-of-type::first-letter {
+    float: left;
+    font-family: var(--serif);
+    font-size: 4.2em;
+    line-height: .85;
+    padding: .06em .1em 0 0;
+  }
+  .article h2 {
+    margin: 1.8em 0 .6em;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.6em;
+    line-height: 1.15;
+  }
+  .article figure { margin: 2em 0; }
+  .article figure.wide { margin-inline: -40px; }
+  .article figure .img-placeholder { aspect-ratio: 3 / 2; }
+  .article figcaption { margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+  .article figcaption .credit { display: block; font-size: 13px; margin-top: 4px; }
+
+  .pullquote {
+    margin: 2em 0;
+    padding: 28px 30px;
+    background: var(--bluegrey);
+    color: #fff;
+  }
+  .pullquote p { margin: 0; font-family: var(--serif); font-size: 1.45em; line-height: 1.3; }
+  .pullquote cite { display: block; margin-top: 12px; font-style: normal; font-size: 15px; color: #e1e9ec; }
+
+  /* ---------- Sources (tinted box, like the reference's contact panel) ---------- */
+  .sources {
+    margin-top: 48px;
+    background: #fbefc9;
+    padding: clamp(24px, 4vw, 36px);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .sources h2 { margin: 0 0 16px; font-family: var(--serif); font-weight: 500; font-size: 28px; color: var(--red-text); }
+  .sources h3 { margin: 20px 0 6px; }
+  .sources ol, .sources ul { margin: 0; padding-left: 20px; }
+  .sources li { margin-bottom: 6px; }
+  .sources .note { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid rgba(17,17,17,.2); }
+
+  /* ---------- Continue through the edition ---------- */
+  .continue-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(20px, 3vw, 32px); }
+  .next-card { display: grid; grid-template-columns: 1fr 1fr; text-decoration: none; background: var(--yellow); }
+  .next-card .media { position: relative; min-height: 280px; }
+  .next-card .img-placeholder { position: absolute; inset: 0; }
+  .next-card .body { padding: 26px; display: flex; flex-direction: column; gap: 10px; }
+  .next-card h3 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: 30px; line-height: 1.1; }
+  .next-card .n { font-weight: 700; font-size: 72px; line-height: .85; }
+  .next-card:hover h3 { text-decoration: underline; text-underline-offset: 5px; }
+  .others { display: grid; gap: 0; border-top: 2px solid var(--ink); }
+  .others a { display: grid; grid-template-columns: 56px 1fr; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .others .n { font-weight: 700; font-size: 28px; line-height: 1; }
+  .others h3 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: 21px; line-height: 1.2; }
+  .others a:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+  .others .current { color: var(--muted); }
+  .continue-foot { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-top: 24px; padding: 22px 26px; background: var(--slate); color: #fff; }
+  .continue-foot p { margin: 0; font-family: var(--serif); font-size: 24px; }
+
+  /* ---------- In conversation ---------- */
+  .conversation { max-width: 820px; }
+  .conversation > h2 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(32px, 4vw, 46px); }
+  .conversation > .intro { margin: 10px 0 0; font-size: 18px; }
+
+  .guidance { margin-top: 26px; border: 2px solid var(--ink); padding: 20px 22px; background: #fff; }
+  .guidance h3 { margin: 0 0 8px; }
+  .guidance p { margin: 0 0 12px; font-size: 16px; }
+
+  .comment-form { margin-top: 26px; display: grid; gap: 16px; }
+  .comment-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+  .field .hint { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .field input,
+  .field textarea {
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 17px;
+    padding: 12px 14px;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    background: #fff;
+    color: var(--ink);
+  }
+  .field textarea { min-height: 140px; resize: vertical; }
+  .check { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; }
+  .check input { width: 20px; height: 20px; margin-top: 2px; flex: 0 0 auto; accent-color: var(--ink); }
+  .form-foot { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .form-foot .safety { margin: 0; font-size: 14px; color: var(--muted); flex: 1 1 260px; }
+
+  .sort { display: flex; flex-wrap: wrap; gap: 0; margin-top: 40px; border-bottom: 2px solid var(--ink); }
+  .sort button {
+    min-height: 44px; padding: 0 16px;
+    font-family: var(--sans); font-size: 15px; font-weight: 600;
+    background: none; border: 0; border-bottom: 4px solid transparent; margin-bottom: -2px; cursor: pointer;
+  }
+  .sort button[aria-pressed="true"] { border-bottom-color: var(--red); }
+
+  .comments { list-style: none; margin: 0; padding: 0; }
+  .comment { padding: 22px 0; border-bottom: 1px solid var(--rule); }
+  .comment.pinned { background: #eef6f7; padding: 22px 20px; border-left: 4px solid var(--slate); }
+  .comment-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 15px; }
+  .comment-head .who { font-weight: 700; }
+  .comment-head time, .comment-head .edited { color: var(--muted); }
+  .badge { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 2px 7px; }
+  .badge.editorial { background: var(--slate); color: #fff; }
+  .badge.pin { background: var(--ink); color: var(--yellow); }
+  .comment p { margin: 8px 0 0; font-size: 17px; }
+  .comment-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .comment-actions button {
+    min-height: 40px; padding: 0 12px;
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    background: transparent; border: 1.5px solid var(--rule); cursor: pointer;
+  }
+  .comment-actions button:hover { border-color: var(--ink); }
+  .comment-actions .record[aria-pressed="true"] { background: var(--yellow); border-color: var(--ink); }
+  .replies { list-style: none; margin: 14px 0 0 24px; padding: 0 0 0 18px; border-left: 2px solid var(--rule); }
+  .replies .comment { border-bottom: 0; padding: 12px 0; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .reading { grid-template-columns: 180px minmax(0, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .opening { grid-template-columns: 1fr; }
+    .opening .img-placeholder { aspect-ratio: 4 / 3; }
+    .reading { grid-template-columns: 1fr; padding-top: 32px; }
+    .tools { display: none; }
+    .tools-mobile { display: block; margin-bottom: 28px; border: 2px solid var(--ink); }
+    .tools-mobile summary { min-height: 48px; display: flex; align-items: center; padding: 0 16px; font-weight: 700; cursor: pointer; }
+    .tools-mobile .tools { display: grid; position: static; padding: 0 16px 16px; }
+    .article figure.wide { margin-inline: 0; }
+    .continue-grid, .next-card { grid-template-columns: 1fr; }
+    .next-card .media { min-height: 200px; }
+    .comment-form .row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div style="background:#111;color:#ffd052;font:600 13px/1.4 'Instrument Sans',Arial,sans-serif;text-align:center;padding:8px 16px">Design preview for The Living Archive by Fifty Shades of Gay. Story content is placeholder. Not the live site.</div>
+
+<div class="progress" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="The Living Archive by Fifty Shades of Gay, home">
+      <img src="assets/living-archive-logo.png" width="600" height="304" alt="FSOG | The Living Archive by Fifty Shades of Gay">
+    </a>
+    <nav class="primary-nav" aria-label="Main">
+      <ul>
+        <li><a href="index.html">The Living Archive</a></li>
+        <li><a href="index.html#archive">Archive</a></li>
+        <li><a href="index.html#about">About FSOG</a></li>
+        <li class="has-dropdown">
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="get-involved">
+            Get Involved
+            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+          <ul class="dropdown" id="get-involved" hidden>
+            <li><a href="#">Suggest a story</a></li>
+            <li><a href="#">Collaborate with us</a></li>
+            <li><a href="#">Events, talks and workshops</a></li>
+            <li><a href="#">Support the archive</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Resources</a></li>
+        <li><a class="nav-subscribe" href="index.html#subscribe">Subscribe</a></li>
+      </ul>
+    </nav>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <div class="mobile-menu-top">
+    <span class="label">The Living Archive</span>
+    <button class="menu-button menu-close" type="button" style="display:inline-flex">Close</button>
+  </div>
+  <ul>
+    <li><a href="index.html">The Living Archive</a></li>
+    <li><a href="index.html#archive">Archive</a></li>
+    <li><a href="index.html#about">About FSOG</a></li>
+    <li><span class="menu-group">Get Involved</span></li>
+    <li class="sub"><a href="#">Suggest a story</a></li>
+    <li class="sub"><a href="#">Collaborate with us</a></li>
+    <li class="sub"><a href="#">Events, talks and workshops</a></li>
+    <li class="sub"><a href="#">Support the archive</a></li>
+    <li><a href="#">Resources</a></li>
+  </ul>
+  <a class="btn btn-primary" href="index.html#subscribe">Subscribe free</a>
+</div>
+
+<main id="main">
+  <article>
+    <div class="wrap">
+      <div class="story-top">
+        <span class="label">01 / Theme / Place</span>
+        <a class="label" href="edition-01.html" style="text-decoration:none">Edition 01 · The records that remain</a>
+      </div>
+
+      <header class="opening">
+        <figure>
+          <div class="img-placeholder">Story hero image</div>
+          <figcaption class="credit"><span class="placeholder-flag">Placeholder</span> Full image credit: title, photographer or archive, year, source and usage rights.</figcaption>
+        </figure>
+        <div>
+          <h1>Story one headline goes here</h1>
+          <p class="standfirst">A short standfirst explaining what the story reveals and why it matters.</p>
+          <div class="byline">
+            <span>By <strong>Author name</strong></span>
+            <span class="meta"><time datetime="2026-10-03">3 October 2026</time> · 8 minute read</span>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <div class="wrap reading">
+      <!-- desktop reading tools -->
+      <aside class="tools" aria-label="Reading tools">
+        <span class="label">Reading tools</span>
+        <a href="edition-01.html">&larr; Back to Edition 01</a>
+        <div class="size-row" role="group" aria-label="Text size">
+          <button type="button" data-size="-1" aria-label="Smaller text">A&minus;</button>
+          <button type="button" data-size="1" aria-label="Larger text">A+</button>
+        </div>
+        <button type="button" class="save" aria-pressed="false">Save story</button>
+        <button type="button" class="share">Share story</button>
+        <a href="#sources">Jump to sources</a>
+        <p class="status" role="status" aria-live="polite"></p>
+      </aside>
+
+      <div>
+        <!-- mobile reading tools: one simple menu -->
+        <details class="tools-mobile">
+          <summary>Reading tools</summary>
+          <div class="tools">
+            <a href="edition-01.html">&larr; Back to Edition 01</a>
+            <div class="size-row" role="group" aria-label="Text size">
+              <button type="button" data-size="-1" aria-label="Smaller text">A&minus;</button>
+              <button type="button" data-size="1" aria-label="Larger text">A+</button>
+            </div>
+            <button type="button" class="save" aria-pressed="false">Save story</button>
+            <button type="button" class="share">Share story</button>
+            <a href="#sources">Jump to sources</a>
+            <p class="status" role="status" aria-live="polite"></p>
+          </div>
+        </details>
+
+        <div class="article">
+          <p><span class="placeholder-flag">Placeholder text</span> The opening paragraph of the story sits here. It is set large, with a generous line height and a controlled line length, so long-form reading stays calm and comfortable on every screen.</p>
+          <p>Paragraphs are kept short and separated with clear spacing. This placeholder shows the rhythm of the page; the real story text replaces it once it is final.</p>
+          <p>A second paragraph continues the story. Body copy is high contrast, dark ink on warm paper, and never runs across the full width of a desktop screen.</p>
+
+          <h2>A clear subheading breaks the story into parts</h2>
+          <p>Subheadings use the editorial serif so readers can scan the structure of a longer piece and return to where they left off.</p>
+
+          <figure class="wide">
+            <div class="img-placeholder">Inline archival image</div>
+            <figcaption>A detailed caption describes what the image shows, where it comes from and why it matters to the story.
+              <span class="credit">Image credit: archive or photographer, year, source and usage rights.</span>
+            </figcaption>
+          </figure>
+
+          <p>The story continues after the image. Inline visuals sit inside the reading column or step out slightly wider, but never interrupt reading with motion or pop-ups.</p>
+
+          <blockquote class="pullquote">
+            <p>A pull quote appears only when it adds meaning to the story.</p>
+            <cite>Name of the person quoted, with context</cite>
+          </blockquote>
+
+          <p>The closing paragraphs of the story sit here, leading into the sources, notes and further reading below.</p>
+
+          <section class="sources" id="sources" aria-labelledby="sources-title">
+            <h2 id="sources-title">Sources, notes and further reading</h2>
+            <h3 class="label">Sources</h3>
+            <ol>
+              <li>Archive name, collection, item reference, year.</li>
+              <li>Book or article: author, title, publisher, year, page.</li>
+              <li>Interview with name or pseudonym, date, with consent.</li>
+            </ol>
+            <h3 class="label">Image credits</h3>
+            <ul>
+              <li>Hero image: credit and usage rights.</li>
+              <li>Inline image: credit and usage rights.</li>
+            </ul>
+            <h3 class="label">Further reading</h3>
+            <ul>
+              <li>Linked resources for readers who want to go deeper.</li>
+            </ul>
+            <p class="note"><strong>Editorial note on historical uncertainty.</strong> Where the record is incomplete or sources disagree, we say so here. <strong>Corrections:</strong> none yet. Spotted something we should check? <a href="#">Tell the editors</a>.</p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Continue through the edition -->
+  <section class="section" style="padding-top:32px" aria-labelledby="continue-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-title" id="continue-title">Continue through Edition 01</h2>
+        <a class="text-link" href="edition-01.html">Back to the edition</a>
+      </div>
+      <div class="continue-grid">
+        <a class="next-card" href="story.html">
+          <div class="media"><div class="img-placeholder">Story 02 image</div></div>
+          <div class="body">
+            <span class="label">Next story</span>
+            <span class="n" aria-hidden="true">02</span>
+            <h3>Story two headline goes here</h3>
+            <p style="margin:0">The subtitle of the second story, in a sentence.</p>
+          </div>
+        </a>
+        <div class="others">
+          <span class="label" style="padding:12px 0">In this edition</span>
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--rule)" class="current" aria-current="page">
+            <span class="n" style="font-weight:700;font-size:28px;line-height:1">01</span><div><h3 style="margin:0;font-family:var(--serif);font-weight:500;font-size:21px;line-height:1.2">Story one headline goes here</h3><span class="label">You are reading this</span></div>
+          </div>
+          <a href="story.html"><span class="n">02</span><div><h3>Story two headline goes here</h3></div></a>
+          <a href="story.html"><span class="n">03</span><div><h3>Story three headline goes here</h3></div></a>
+          <a href="story.html"><span class="n">04</span><div><h3>Story four headline goes here</h3></div></a>
+        </div>
+      </div>
+      <div class="continue-foot">
+        <p>Receive the next edition in your inbox.</p>
+        <a class="btn btn-primary" href="index.html#subscribe">Subscribe free</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- In conversation -->
+  <section class="section" id="conversation" style="padding-top:0" aria-labelledby="conv-title">
+    <div class="wrap">
+      <div class="conversation">
+        <div class="section-head" style="margin-bottom:18px"><span class="label">Story 01 discussion</span><span class="placeholder-flag">Sample comments</span></div>
+        <h2 id="conv-title">In conversation</h2>
+        <p class="intro">Read something that adds to the record? Share a thought, question or memory. You may use a name that feels safe to you.</p>
+
+        <div class="guidance">
+          <h3 class="label">Keep the archive safe</h3>
+          <p>Be curious, generous and specific. Do not post hate speech, harassment, private information, unverified accusations or anything that could out or endanger another person. We moderate this space and may remove comments that break these rules.</p>
+          <a class="text-link" href="#">Read full community guidelines</a>
+        </div>
+
+        <form class="comment-form" data-demo novalidate>
+          <div class="row">
+            <div class="field">
+              <label for="c-name">Display name</label>
+              <input id="c-name" name="name" autocomplete="nickname" required>
+              <span class="hint">Use your name, initials or a pseudonym.</span>
+            </div>
+            <div class="field">
+              <label for="c-email">Email address</label>
+              <input id="c-email" name="email" type="email" autocomplete="email" required>
+              <span class="hint">Your email will not be displayed publicly.</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="c-text">Comment</label>
+            <textarea id="c-text" name="comment" required></textarea>
+          </div>
+          <label class="check" for="c-agree">
+            <input type="checkbox" id="c-agree" name="agree" required>
+            <span>I have read the community guidelines.</span>
+          </label>
+          <div class="form-foot">
+            <button class="btn btn-primary" type="submit">Post comment</button>
+            <p class="safety">Comments may be reviewed before publication to keep this a respectful and safe space.</p>
+          </div>
+          <p class="form-status" role="status" aria-live="polite" style="margin:0;font-weight:600"></p>
+        </form>
+
+        <div class="sort" role="group" aria-label="Sort comments">
+          <button type="button" aria-pressed="true">Editor's picks</button>
+          <button type="button" aria-pressed="false">Most valued</button>
+          <button type="button" aria-pressed="false">Newest</button>
+        </div>
+
+        <ol class="comments">
+          <li class="comment pinned">
+            <div class="comment-head">
+              <span class="who">FSOG Editorial</span>
+              <span class="badge editorial">Verified</span>
+              <span class="badge pin">Pinned</span>
+              <time datetime="2026-10-03T10:00">3 October 2026, 10:00</time>
+            </div>
+            <p>The editorial team's question for readers is pinned here beneath every story.</p>
+            <div class="comment-actions">
+              <button type="button" class="record" aria-pressed="false">This added to the record · 0</button>
+              <button type="button">Reply</button>
+            </div>
+          </li>
+          <li class="comment">
+            <div class="comment-head">
+              <span class="who">A reader's chosen name</span>
+              <time datetime="2026-10-03T14:20">3 October 2026, 14:20</time>
+              <span class="edited">· Edited</span>
+            </div>
+            <p>An approved reader comment appears here, with the time it was posted and an edited label if it was changed.</p>
+            <div class="comment-actions">
+              <button type="button" class="record" aria-pressed="false">This added to the record · 0</button>
+              <button type="button">Reply</button>
+              <button type="button">Report</button>
+            </div>
+            <ol class="replies">
+              <li class="comment">
+                <div class="comment-head">
+                  <span class="who">FSOG Editorial</span>
+                  <span class="badge editorial">Verified</span>
+                  <time datetime="2026-10-03T16:05">3 October 2026, 16:05</time>
+                </div>
+                <p>Replies are threaded one level deep, so conversations stay easy to follow.</p>
+                <div class="comment-actions">
+                  <button type="button" class="record" aria-pressed="false">This added to the record · 0</button>
+                </div>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="footer-mast">The Living Archive</p>
+        <p class="footer-line">Built to keep queer stories in public memory.</p>
+      </div>
+      <div class="footer-col">
+        <h2 class="label">Read</h2>
+        <ul>
+          <li><a href="index.html">The Living Archive</a></li>
+          <li><a href="index.html#archive">Archive</a></li>
+          <li><a href="index.html#about">About FSOG</a></li>
+          <li><a href="index.html#subscribe">Subscribe</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2 class="label">Get involved</h2>
+        <ul>
+          <li><a href="#">Suggest a story</a></li>
+          <li><a href="#">Collaborate</a></li>
+          <li><a href="#">Resources</a></li>
+          <li><a href="#">Support the archive</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2 class="label">Standards</h2>
+        <ul>
+          <li><a href="#">Community guidelines</a></li>
+          <li><a href="#">Editorial standards</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="https://www.instagram.com/50shadesofgayofficial/" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Fifty Shades of Gay</span>
+      <span>fiftyshadesofgay.org</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+  (function () {
+    // reading progress through the article
+    var bar = document.querySelector('.progress');
+    var article = document.querySelector('article');
+    function progress() {
+      var r = article.getBoundingClientRect();
+      var total = r.height - window.innerHeight;
+      var done = Math.min(1, Math.max(0, -r.top / (total > 0 ? total : 1)));
+      bar.style.width = (done * 100) + '%';
+    }
+    window.addEventListener('scroll', progress, { passive: true });
+    progress();
+
+    // text size: 18px to 26px
+    var size = 20;
+    document.querySelectorAll('[data-size]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        size = Math.max(18, Math.min(26, size + 2 * Number(b.dataset.size)));
+        document.documentElement.style.setProperty('--body-size', size + 'px');
+      });
+    });
+
+    function say(msg) {
+      document.querySelectorAll('.tools .status').forEach(function (s) { s.textContent = msg; });
+    }
+
+    // save story (mockup: remembered in this browser only)
+    document.querySelectorAll('.save').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        document.querySelectorAll('.save').forEach(function (x) {
+          x.setAttribute('aria-pressed', String(on));
+          x.textContent = on ? 'Saved' : 'Save story';
+        });
+        say(on ? 'Story saved.' : 'Removed from saved stories.');
+      });
+    });
+
+    // share: native share sheet where available, otherwise copy the link
+    document.querySelectorAll('.share').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var data = { title: document.title, url: location.href };
+        if (navigator.share) {
+          navigator.share(data).catch(function () {});
+        } else if (navigator.clipboard) {
+          navigator.clipboard.writeText(location.href).then(function () { say('Link copied.'); }, function () { say('Copy the link from the address bar.'); });
+        }
+      });
+    });
+
+    // "This added to the record" reaction
+    document.querySelectorAll('.record').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        var n = Number(b.textContent.replace(/\D/g, '')) + (on ? 1 : -1);
+        b.setAttribute('aria-pressed', String(on));
+        b.textContent = 'This added to the record · ' + n;
+      });
+    });
+
+    // sort toggle
+    var sortBtns = document.querySelectorAll('.sort button');
+    sortBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        sortBtns.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      });
+    });
+  })();
+</script>
+</body>
+</html>
