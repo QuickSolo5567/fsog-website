@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About FSOG</title>
+<meta name="description" content="How Fifty Shades of Gay grew from #IAmNotACriminal, a 2016 street photo campaign in Mumbai, into Asia's living archive of queer history, culture and community.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap">
+<link rel="stylesheet" href="living-archive/assets/site.css">
+<script>
+  // turn on motion styles before first paint, unless the visitor prefers reduced motion
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) document.documentElement.classList.add('js');
+</script>
+<link rel="stylesheet" href="living-archive/assets/fsog.css">
+<style>
+  /* the page opens on the journey; leave room for the fixed header */
+  .journey-section { padding-top: clamp(120px, 16vh, 168px); }
+
+  /* ---------- The journey: line draws as you scroll ---------- */
+  .journey { position: relative; padding-block: 8px; }
+  .journey-track,
+  .journey-fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    margin-left: -1.5px;
+  }
+  .journey-track { background: var(--rule); }
+  .journey-fill {
+    background: linear-gradient(180deg, var(--red), var(--yellow) 35%, var(--powder) 70%, var(--slate));
+    /* reveal a fixed gradient instead of stretching it, so colours stay put as the line grows */
+    clip-path: inset(0 0 calc((1 - var(--p, 0)) * 100%) 0);
+  }
+  .milestones { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(56px, 8vw, 104px); position: relative; }
+  .milestone { position: relative; display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(40px, 6vw, 88px); align-items: start; }
+  .milestone-dot {
+    position: absolute;
+    left: 50%;
+    top: 6px;
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    background: var(--paper);
+    transition: background-color .4s ease, transform .4s cubic-bezier(.2,.7,.2,1);
+    z-index: 1;
+  }
+  .milestone.is-active .milestone-dot { background: var(--yellow); transform: scale(1.25); }
+  .milestone:nth-child(4n+2).is-active .milestone-dot { background: var(--powder); }
+  .milestone:nth-child(4n+3).is-active .milestone-dot { background: var(--red); }
+  .milestone:nth-child(4n+4).is-active .milestone-dot { background: var(--slate); }
+
+  .milestone-text { grid-column: 1; text-align: right; }
+  .milestone-media { grid-column: 2; margin: 0; }
+  .milestone:nth-child(even) .milestone-text { grid-column: 2; text-align: left; }
+  .milestone:nth-child(even) .milestone-media { grid-column: 1; grid-row: 1; }
+
+  .milestone-date {
+    display: inline-block;
+    padding: 4px 10px;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .milestone h3 { margin: 14px 0 0; font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 2.8vw, 36px); line-height: 1.1; text-wrap: balance; }
+  .milestone p { margin: 12px 0 0; color: var(--ink-soft); }
+  .milestone-media .img-placeholder { aspect-ratio: 4 / 3; border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+  .milestone-media figcaption { text-align: left; }
+  .milestone-media img { width: 100%; height: auto; border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); background: var(--paper-deep); }
+  .media-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .media-pair figure { margin: 0; }
+  .media-pair img { aspect-ratio: 1 / 1; object-fit: cover; }
+
+  /* items rest dimmed and lowered until the line reaches them */
+  .js .milestone-text,
+  .js .milestone-media { opacity: .25; transform: translateY(28px); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .js .milestone-media { transition-delay: .12s; }
+  .js .milestone.is-active .milestone-text,
+  .js .milestone.is-active .milestone-media { opacity: 1; transform: none; }
+
+  /* ---------- Whiteboard wall ---------- */
+  .boards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .board {
+    margin: 0;
+    padding: 22px 22px 18px;
+    background: #fff;
+    border: 2px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    transform: rotate(var(--r, 0deg));
+  }
+  .board:nth-child(3n+1) { --r: -1deg; }
+  .board:nth-child(3n+3) { --r: .8deg; }
+  .board blockquote { margin: 0; font-family: "Comic Sans MS", "Marker Felt", "Bradley Hand", cursive; font-size: 24px; line-height: 1.25; color: #1f3b8f; }
+  .board blockquote span { display: block; margin-top: 8px; color: #15897a; font-size: 18px; }
+  .board figcaption { margin-top: 14px; font-size: 14px; color: var(--muted); }
+
+  /* ---------- Today ---------- */
+  .today { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid var(--ink); }
+  .today div { padding: 24px 24px 8px 0; }
+  .today div + div { padding-left: 24px; border-left: 1px solid var(--rule); }
+  .today h3 { margin: 0 0 8px; font-family: var(--serif); font-weight: 500; font-size: 26px; }
+  .today p { margin: 0; color: var(--ink-soft); }
+
+  .about-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+
+  @media (max-width: 900px) {
+    .journey-track, .journey-fill { left: 10px; }
+    .milestone { grid-template-columns: 1fr; padding-left: 44px; row-gap: 20px; }
+    .milestone-dot { left: 10px; }
+    .milestone-text,
+    .milestone:nth-child(even) .milestone-text { grid-column: 1; grid-row: 1; text-align: left; }
+    .milestone-media,
+    .milestone:nth-child(even) .milestone-media { grid-column: 1; grid-row: 2; }
+    .boards { grid-template-columns: 1fr; }
+    .today { grid-template-columns: 1fr 1fr; }
+    .today div:nth-child(3) { padding-left: 0; border-left: 0; }
+  }
+  @media (max-width: 560px) {
+    .today { grid-template-columns: 1fr; }
+    .today div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); }
+  }
+</style>
+</head>
+<body class="site about">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="Fifty Shades of Gay, home">
+      <img class="logo-dark" src="living-archive/assets/fsog-logo.png" width="746" height="476" alt="FSOG, Fifty Shades of Gay">
+      <img class="logo-light" src="living-archive/assets/fsog-logo-white.png" width="746" height="476" alt="">
+    </a>
+
+    <nav class="primary-nav" aria-label="Main">
+      <ul>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a href="living-archive/index.html">The Living Archive</a></li>
+        <li><a href="index.html#learn">Learn</a></li>
+        <li><a href="index.html#events">Events</a></li>
+        <li class="has-dropdown">
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="get-involved">
+            Get involved
+            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+          <ul class="dropdown" id="get-involved" hidden>
+            <li><a href="index.html#involved">Share your story</a></li>
+            <li><a href="index.html#involved">Volunteer and contribute</a></li>
+            <li><a href="index.html#involved">Partner with us</a></li>
+            <li><a href="index.html#involved">Support FSOG</a></li>
+          </ul>
+        </li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a class="nav-subscribe" href="index.html#subscribe">Subscribe</a></li>
+      </ul>
+    </nav>
+
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <div class="mobile-menu-top">
+    <img src="living-archive/assets/fsog-logo.png" width="746" height="476" alt="FSOG" style="height:40px;width:auto">
+    <button class="menu-button menu-close" type="button" style="display:inline-flex">Close</button>
+  </div>
+  <ul>
+    <li><a href="about.html">About</a></li>
+    <li><a href="living-archive/index.html">The Living Archive</a></li>
+    <li><a href="index.html#learn">Learn</a></li>
+    <li><a href="index.html#events">Events</a></li>
+    <li><span class="menu-group">Get involved</span></li>
+    <li class="sub"><a href="index.html#involved">Share your story</a></li>
+    <li class="sub"><a href="index.html#involved">Volunteer and contribute</a></li>
+    <li class="sub"><a href="index.html#involved">Partner with us</a></li>
+    <li class="sub"><a href="index.html#involved">Support FSOG</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a class="btn btn-primary" href="index.html#subscribe">Subscribe free</a>
+</div>
+
+
+<main id="main">
+
+  <!-- 1. The journey -->
+  <section class="section journey-section" id="journey" aria-labelledby="journey-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h1 class="section-title" id="journey-title">The journey</h1>
+        <span class="label" style="color:var(--muted)">About FSOG · 2016 to today</span>
+      </div>
+
+      <div class="journey">
+        <div class="journey-track" aria-hidden="true"></div>
+        <div class="journey-fill" aria-hidden="true"></div>
+        <ol class="milestones">
+
+          <li class="milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-text">
+              <span class="milestone-date">2 February 2016</span>
+              <h3>Coming home to a contradiction</h3>
+              <p>Shubham Mehrotra returned to India after years in international journalism, expecting to report on a modern, progressive country. On the drive from Mumbai airport, trans women at traffic junctions offered blessings to drivers who rolled up their windows. Women like Meetu, who wanted to join the police, and Pooja, who lived on small shop collections and festival dancing, were revered for luck yet denied an ordinary place in society.</p>
+            </div>
+            <div class="milestone-media media-pair">
+              <figure><img src="living-archive/assets/about/shubham-mehrotra.jpg" width="1200" height="1200" alt="Portrait of Shubham Mehrotra, founder of Fifty Shades of Gay" loading="lazy" decoding="async"><figcaption class="credit">Shubham Mehrotra, founder of Fifty Shades of Gay.</figcaption></figure>
+              <figure><img src="living-archive/assets/about/pooja-and-meetu.jpg" width="1600" height="1352" alt="Pooja and Meetu in Mumbai holding a whiteboard that reads "I have the right to education #IAmNotACriminal"" loading="lazy" decoding="async"><figcaption class="credit">Pooja (left) and Meetu (right) in Mumbai, demanding the right to education. Meetu dreamed of becoming a police officer; Pooja survived on daily street collections and dancing.</figcaption></figure>
+            </div>
+          </li>
+
+          <li class="milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-text">
+              <span class="milestone-date">2013 to 2016</span>
+              <h3>Recognised by one ruling, criminalised by another</h3>
+              <p>In 2014 the Supreme Court's NALSA judgment recognised transgender people as a third gender with rights to equality and work. Just months earlier, in December 2013, the same court had reinstated Section 377, making consensual same-sex love an offence again. The state granted dignity with one hand and criminalised intimacy with the other.</p>
+            </div>
+            <figure class="milestone-media">
+              <img src="living-archive/assets/about/equality-gathering-mumbai.jpg" width="1200" height="802" alt="Community allies holding FSOG placards reading "Love will overcome, but laws matter" in front of a rainbow flag" loading="lazy" decoding="async">
+              <figcaption class="credit">Founder Shubham Mehrotra (right) alongside community allies at an early Fifty Shades of Gay equality gathering in Mumbai. QGraphy.</figcaption>
+            </figure>
+          </li>
+
+          <li class="milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-text">
+              <span class="milestone-date">2016</span>
+              <h3>"We were living it. The papers were not writing it."</h3>
+              <p>Mainstream newsrooms rarely reported on queer lives. There was no census, no workplace protection, and violence against gender-nonconforming people in cities like Bengaluru went largely unpunished. Queer people were not absent. Their existence had simply been made taboo.</p>
+            </div>
+            <figure class="milestone-media">
+              <img src="living-archive/assets/about/jason.jpg" width="1600" height="1216" alt="Jason holding a whiteboard that reads "Sexuality is not just black and white #IAmNotACriminal"" loading="lazy" decoding="async">
+              <figcaption class="credit">Fashion designer Jason during the 2016 campaign. Having found safety in his mother's acceptance at fifteen, he lent his face to FSOG to challenge the media's refusal to cover queer Indians living with dignity. SM Photography.</figcaption>
+            </figure>
+          </li>
+
+          <li class="milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-text">
+              <span class="milestone-date">February 2016</span>
+              <h3>#IAmNotACriminal</h3>
+              <p>FSOG launched on the street with a whiteboard, a marker pen and one question for queer and trans people across cities: in a fairer world, what right would you want? Trans women at Mumbai's traffic junctions answered, and so did television star and drag artist Sushant Divgikar (Rani Ko-HE-Nur), trans pioneer Dr Sylvester Rodgers and designer Rohit Verma. Families joined too. At Mumbai Pride, Pradeep Divgikar marched beside his child holding a sign of unconditional love.</p>
+            </div>
+            <figure class="milestone-media">
+              <img src="living-archive/assets/about/iamnotacriminal-mumbai.jpg" width="1200" height="674" alt="Trans women at a Mumbai traffic junction holding a whiteboard that reads "I have the right to employment #IAmNotACriminal"" loading="lazy" decoding="async">
+              <figcaption class="credit">Trans women at a Mumbai traffic junction during #IAmNotACriminal, 2016.</figcaption>
+            </figure>
+          </li>
+
+          <li class="milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-text">
+              <span class="milestone-date">Mid 2016</span>
+              <h3>Fighting homophobia on the feed</h3>
+              <p>Within three months, the street project had become an eight-city documentary effort across Mumbai, Delhi, Pune, Odisha, Chandigarh, Bengaluru, Chennai and Mysuru. Through earned trust, FSOG recorded more than 80 personal stories, from well-known cultural figures to trans women and hijra communities in Mumbai's red-light districts. A national newspaper covered the campaign, and the feed became a safe place for people who were still closeted.</p>
+            </div>
+            <figure class="milestone-media">
+              <div class="img-placeholder">Newspaper clipping: "Fighting homophobia on Instagram", 2016</div>
+              <figcaption class="credit"><span class="placeholder-flag">Photo to come</span> A 2016 national newspaper feature documenting how 23-year-old Shubham Mehrotra and volunteer contributors gathered over 60 personal narratives.</figcaption>
+            </figure>
+          </li>
+
+          <li class="milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-text">
+              <span class="milestone-date">2017</span>
+              <h3>Beyond the lens</h3>
+              <p>As hundreds of people reached out for help, FSOG grew from a photo series into a support network. It brought together mental health professionals and international legal advisers to guide people in distress, set up family counselling to help parents through acceptance, and pushed for comprehensive sex education. The crew marched at Bengaluru Pride that year.</p>
+            </div>
+            <figure class="milestone-media">
+              <div class="img-placeholder">Photos: the FSOG crew at Bengaluru Pride, 2017</div>
+              <figcaption class="credit"><span class="placeholder-flag">Photo to come</span> Shubham Mehrotra and the FSOG crew at Bengaluru Pride in 2017, with placards reading "Not gay, but supportive" and "Straight man with gay pride".</figcaption>
+            </figure>
+          </li>
+
+          <li class="milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-text">
+              <span class="milestone-date">2017 to 2018</span>
+              <h3>The stories kept growing</h3>
+              <p>FSOG went from documenting lives to mobilising for them: organising vigils, coordinating crisis support, connecting people with lawyers and amplifying petitions against Section 377. Believing that shame starts with ignorance, Mehrotra took the case for sex education to the TEDxEicherSchool stage.</p>
+            </div>
+            <figure class="milestone-media">
+              <img src="living-archive/assets/about/tedx-eicher-school.jpg" width="1280" height="720" alt="Shubham Mehrotra speaking on stage at TEDxEicherSchool" loading="lazy" decoding="async">
+              <figcaption class="credit">Shubham Mehrotra presenting her talk on breaking the culture of silence around sex education and youth safety at TEDxEicherSchool (available to stream on YouTube).</figcaption>
+            </figure>
+          </li>
+
+          <li class="milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-text">
+              <span class="milestone-date">6 September 2018</span>
+              <h3>From street portraits to recovering history</h3>
+              <p>The Supreme Court unanimously decriminalised consensual same-sex relationships, but a ruling could not undo generations of erasure overnight. With voices like Anwesh Sahoo, who represented India at Mr Gay World, and comedian Navin Noronha, FSOG widened its lens across South Asia, researching and recovering centuries of queer history to show that queer lives here were never a Western import.</p>
+            </div>
+            <div class="milestone-media media-pair">
+              <figure><img src="living-archive/assets/about/anwesh-sahoo.jpg" width="1600" height="1051" alt="Anwesh Sahoo with a whiteboard reading "Nobody has the right to hurt you for being different #IAmNotACriminal"" loading="lazy" decoding="async"><figcaption class="credit">Anwesh Sahoo, artist, model and Mr Gay World India 2016, who partnered with FSOG to challenge hyper-masculine stereotypes through fashion and visual art.</figcaption></figure>
+              <figure><img src="living-archive/assets/about/navin-noronha.jpg" width="1600" height="1565" alt="Navin Noronha holding a sign reading "Gay, and here to stay!!! #iamnotacriminal #50shadesofgay"" loading="lazy" decoding="async"><figcaption class="credit">Stand-up comedian Navin Noronha, one of India's first out comics: "The fact that no one chooses to be gay is still not clear."</figcaption></figure>
+            </div>
+          </li>
+
+          <li class="milestone">
+            <span class="milestone-dot" aria-hidden="true"></span>
+            <div class="milestone-text">
+              <span class="milestone-date">28 September 2026</span>
+              <h3>100,000 strong, and The Living Archive</h3>
+              <p>More than 4,000 posts and countless recovered histories later, 100,000 people read, share and keep this collective memory alive. To thank them, FSOG launched The Living Archive: a free fortnightly publication with long-form investigations, full source lists, archival documents and reading recommendations.</p>
+              <p><a class="text-link" href="living-archive/index.html">Read The Living Archive</a></p>
+            </div>
+            <figure class="milestone-media">
+              <img src="living-archive/assets/about/rohit-verma.jpg" width="1200" height="799" alt="Rohit Verma holding a whiteboard reading "Being gay isn't voluntary. Hate is."" loading="lazy" decoding="async">
+              <figcaption class="credit">Fashion designer Rohit Verma, Mumbai.</figcaption>
+            </figure>
+          </li>
+
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Whiteboard wall -->
+  <section class="section" style="padding-top:0" aria-labelledby="boards-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-title" id="boards-title">In their own words</h2>
+        <span class="label" style="color:var(--muted)">From the 2016 whiteboards</span>
+      </div>
+      <div class="boards" data-stagger>
+        <figure class="board"><blockquote>I have the right to employment <span>#IAmNotACriminal</span></blockquote><figcaption>Trans women, Mumbai</figcaption></figure>
+        <figure class="board"><blockquote>I have the right to education <span>#IAmNotACriminal</span></blockquote><figcaption>Pooja and Meetu, Mumbai</figcaption></figure>
+        <figure class="board"><blockquote>Sexuality is not just black &amp; white <span>#IAmNotACriminal</span></blockquote><figcaption>Jason, fashion designer</figcaption></figure>
+        <figure class="board"><blockquote>Nobody has the right to hurt you for being different <span>#IAmNotACriminal</span></blockquote><figcaption>Anwesh Sahoo, Mr Gay World India 2016</figcaption></figure>
+        <figure class="board"><blockquote>Gay, and here to stay!!! <span>#IAmNotACriminal</span></blockquote><figcaption>Navin Noronha, comedian</figcaption></figure>
+        <figure class="board"><blockquote>Being gay isn't voluntary. Hate is. <span>#50ShadesOfGay</span></blockquote><figcaption>Rohit Verma, fashion designer</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Today -->
+  <section class="section" style="padding-top:0" aria-labelledby="today-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-title" id="today-title">What FSOG does today</h2>
+      </div>
+      <div class="today" data-stagger>
+        <div><h3>Stories</h3><p>Researched, sourced stories that recover queer history across South Asia and beyond.</p></div>
+        <div><h3>The Living Archive</h3><p>A free fortnightly publication for readers who want to go deeper.</p></div>
+        <div><h3>Learn</h3><p>Explainers on identity, sexual health and mental health, and where to find support.</p></div>
+        <div><h3>Community</h3><p>A network of 100,000 people, partners and volunteers who keep these stories alive.</p></div>
+      </div>
+      <div class="about-cta" data-reveal>
+        <a class="btn btn-primary" href="index.html#subscribe">Subscribe free <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="index.html#involved">Share your story</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img class="footer-logo" src="living-archive/assets/fsog-logo-white.png" width="746" height="476" alt="FSOG, Fifty Shades of Gay">
+        <p class="footer-mast">Fifty Shades of Gay</p>
+        <p class="footer-line">Queer stories across South Asia and beyond, since 2016.</p>
+      </div>
+      <div class="footer-col">
+        <h2 class="label">Explore</h2>
+        <ul>
+          <li><a href="about.html">About FSOG</a></li>
+          <li><a href="living-archive/index.html">The Living Archive</a></li>
+          <li><a href="index.html#learn">Learn</a></li>
+          <li><a href="index.html#events">Events</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2 class="label">Get involved</h2>
+        <ul>
+          <li><a href="index.html#involved">Share your story</a></li>
+          <li><a href="index.html#involved">Volunteer</a></li>
+          <li><a href="index.html#involved">Partner with us</a></li>
+          <li><a href="index.html#subscribe">Subscribe</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2 class="label">Standards</h2>
+        <ul>
+          <li><a href="#guidelines">Community guidelines</a></li>
+          <li><a href="#privacy">Privacy</a></li>
+          <li><a href="#takedown">Takedown request</a></li>
+          <li><a href="https://www.instagram.com/50shadesofgayofficial/" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Fifty Shades of Gay</span>
+      <span>fiftyshadesofgay.org</span>
+    </div>
+  </div>
+</footer>
+
+<script src="living-archive/assets/site.js"></script>
+<script src="living-archive/assets/fsog.js"></script>
+<script>
+// About page: the journey line draws as you scroll, and each milestone lights up when the line reaches it.
+(function () {
+  var journey = document.querySelector('.journey');
+  var fill = journey.querySelector('.journey-fill');
+  var items = Array.prototype.slice.call(journey.querySelectorAll('.milestone'));
+  var reduce = !document.documentElement.classList.contains('js');
+
+  if (reduce) {
+    fill.style.setProperty('--p', 1);
+    items.forEach(function (m) { m.classList.add('is-active'); });
+  } else {
+    var dots = [], height = 0, ticking = false;
+    var measure = function () {
+      height = journey.offsetHeight;
+      dots = items.map(function (m) { return m.offsetTop + m.querySelector('.milestone-dot').offsetTop + 10; });
+    };
+    var update = function () {
+      var rect = journey.getBoundingClientRect();
+      // the line's tip sits at 60% of the viewport height
+      var reached = Math.max(0, Math.min(height, window.innerHeight * 0.6 - rect.top));
+      fill.style.setProperty('--p', (reached / height).toFixed(4));
+      for (var i = 0; i < items.length; i++) items[i].classList.toggle('is-active', reached >= dots[i]);
+      ticking = false;
+    };
+    measure();
+    update();
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', function () { measure(); update(); });
+    window.addEventListener('load', function () { measure(); update(); });
+  }
+
+  // fade-in reveals shared with the home page styles
+  if (reduce || !('IntersectionObserver' in window)) return;
+  document.querySelectorAll('[data-stagger]').forEach(function (group) {
+    Array.prototype.forEach.call(group.children, function (el, i) {
+      el.setAttribute('data-reveal', '');
+      el.style.setProperty('--i', i);
+    });
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+      if (e.target.hasAttribute('data-reveal')) setTimeout(function () { e.target.removeAttribute('data-reveal'); }, 1400);
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+  document.querySelectorAll('[data-reveal], .section-head, .mark').forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>

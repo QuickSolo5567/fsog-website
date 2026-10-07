@@ -144,10 +144,10 @@ a { color: inherit; }
   height: 74px;
 }
 
+.brand { display: inline-flex; }
 .brand img {
-  height: 54px;
+  height: 52px;
   width: auto;
-  mix-blend-mode: multiply;
 }
 
 .primary-nav ul {
@@ -263,7 +263,7 @@ a { color: inherit; }
   .primary-nav { display: none; }
   .menu-button { display: inline-flex; align-items: center; }
   .header-inner { height: 60px; }
-  .brand img { height: 40px; }
+  .brand img { height: 40px; width: auto; }
 }
 
 /* ---------- Section scaffolding ---------- */
