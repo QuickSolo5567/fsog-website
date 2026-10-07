@@ -11,23 +11,39 @@ What we know about FSOG from public coverage:
 - It has grown into a **queer collective** that runs **community and singles events** (covered by Man's World India), and it has been featured by Homegrown, Outlook Traveller and Elle India.
 - It posts on Instagram at [@50shadesofgayofficial](https://www.instagram.com/50shadesofgayofficial/).
 
-### Instagram (first pass, 7 October 2026, unverified)
+### Instagram (checked in Chrome, 7 October 2026)
 
-Instagram returns a login shell to plain requests, so these come from a web-fetch summary, not from viewing the profile in a browser. Check them in Chrome before quoting them to the client.
+Viewed logged in at [@50shadesofgayofficial](https://www.instagram.com/50shadesofgayofficial/). This replaces the earlier web-fetch summary.
 
-- **Bio (truncated):** "Queer stories across South Asia & beyond. Asia's only LGBTQIA+ archive of queer history, culture & community. Managed…"
-- **Followers:** about 101K. **Following:** 369. Reported as **verified**.
+- **Name and category:** FSOG, listed as "Community". **Verified.**
+- **Bio (full):** "Queer stories across South Asia & beyond. / Asia's only LGBTQIA+ archive of queer history, culture & community. / Managed by @shubhammehrotraofficial"
+- **Counts:** 4,709 posts, 101K followers, 369 following.
 - **Link in bio:** fiftyshadesofgay.org
-- **Highlights** (reported as 11, 8 named): BTS@FSOG, Mental Health, HIV 101, 🌼FUN🌼, 🌼Bisexual🌼, 🌼Aromantics🌼, 🌼Asexuality🌼, GUESSING GAMES.
-- **Posts:** mostly carousels, still posting in September and October 2026.
+- **Highlights (8, not 11):** BTS@FSOG, Mental Health, HIV 101, 🌼FUN🌼 ("Never have I ever"), 🌼Bisexual🌼, 🌼Aromantics🌼, 🌼Asexuality🌼, GUESSING GAMES. The bi, aro and ace covers are labelled "Myth vs fact". All covers share one style: yellow circle, dark tile, yellow and white type.
+- **Three pinned posts:** Li Shiu Tong (Asian sexologist, 1935), "13 ancient cultures" on gender fluidity, and a Chinese diplomat's lesbian daughter who survived Ravensbrück.
 
-What this suggests (to confirm):
+**What the posts are now.** The grid is almost entirely **queer history carousels**, from South Asia and around the world: Bhupen Khakhar, Shah Hussain and Madho Lal, Prem Kapoor's *Badnam Basti*, Roy Tan, Dora Richter, Christine Jorgensen, Tchaikovsky, Oscar Wilde, Chinese lesbian networks and more. Posting is close to daily (about 20 carousels since 28 September).
 
-- FSOG already calls itself an **archive** in its bio, so The Living Archive matches how it presents itself. Option A still holds, but Stories may deserve more weight than Events on the home page.
-- Several highlights are **explainers** (mental health, HIV, bi, aro and ace identities). That is ready-made material for **Resources**, which could become a "Learn" hub rather than only a list of helplines.
-- **No event highlight came through.** It is unclear whether events still run regularly, so ask the client before giving Events the home page's second slot.
+- **Visual template:** an archival or editorial photo (often black and white) filling the frame, a small FSOG badge top left, a bold white sans-serif headline in title case, a one-line dek below it and a "Swipe →" pill. Carousel icon top right.
+- **Caption pattern:** a short plug ("Subscribe to The Living Archive, FSOG's free fortnightly newsletter, via the link in bio"), two or three sentences of story, a mission line ("FSOG documents queer histories, people and lives that mainstream narratives leave out"), an educational-use disclaimer, hashtags (#QueerIndianHistory, #LGBTQHistory, #TheLivingArchive), then **photo credits and sources** in full.
+- **Tone:** calm, factual and editorial, not slangy. Headlines are hooky ("…Then A Bombay Gallery Took Them Down."), captions are restrained and sourced.
+- **Engagement:** typically a few hundred likes; the Tchaikovsky carousel reached about 50.4K likes and 509 comments.
 
-> Still to collect: recurring event names, cities, how often events run, tone of captions, and visual style (grid colours, photography, type on posts). These need the profile opened in Chrome or screenshots from the client.
+**Key facts the profile adds:**
+
+- **The Living Archive launched on 28 September 2026** to mark 100K followers ("Thank you for building this 100,000 strong community with us"). It is already promoted in every caption, so the newsletter is live and is the main call to action.
+- **Origin story, in FSOG's own words:** a post titled *"I Am Not a Criminal": Inside the Indian Campaign That Began Fifty Shades of Gay* says that in 2016 trans people at Mumbai traffic signals held whiteboards asking for work, education and dignity (#IAmNotACriminal). Photographs credited to Shubham Mehrotra and QPhotography. This is a stronger opening for "Our story" than "a photo series", and it should be told this way.
+- **Founder handle:** @shubhammehrotraofficial manages the account.
+
+What this means for the plan:
+
+- **Stories, not events, are what FSOG does today.** The feed is an archive in all but name, and The Living Archive is its newsletter. Option A still works as a structure, but the home page should lead with Stories and the Archive.
+- **No sign of current events.** Nothing in the recent grid or highlights is an event (BTS@FSOG may hold older behind-the-scenes clips). Move Events below Learn on the home page and show "Get notified" until the client confirms events still run.
+- **The highlights make a ready-made Learn hub:** Mental health, HIV 101 and three "Myth vs fact" explainers (bi, aro, ace).
+- **The site can borrow the Instagram post template** for story cards: full-bleed archival photo, bold headline, one-line dek. Keep crediting sources and photos on every story, as the captions do.
+- **Use "South Asia & beyond"** in the hero; it is the bio's own phrase and the archive covers global history.
+
+> Still to get from the client: whether any events run today (names, cities, frequency), the full-resolution FSOG logo (the profile mark is white "FSOG" with a rainbow ♂/♀ symbol over "Fifty Shades of Gay" on black), and consent for the 2016 campaign photographs.
 
 ## The core shift
 
@@ -56,7 +72,7 @@ My pick is **A**. It's the only option that tells the whole FSOG story, from the
 ```
 Home
 About
-  ├─ Our story (2016 photo series → collective → archive)
+  ├─ Our story (2016 #IAmNotACriminal campaign → collective → archive)
   ├─ Team & contributors
   └─ Press & recognition
 Stories
@@ -82,11 +98,11 @@ Contact
 
 0. **Header.** Plain FSOG wordmark (placeholder until a plain logo arrives). About · Stories · Events · Get involved · Resources · Contact, plus a red Subscribe button. No newspaper masthead.
 1. **Hero.** "Celebrating queer India since 2016" (or "South Asia", see below) beside a mosaic of 6–9 portraits in palette-coloured frames, all marked as placeholders. Buttons: *Read the stories* and *Get involved*.
-2. **Our story strip.** Three steps: 2016 photo series → collective → The Living Archive. Links to About.
+2. **Our story strip.** Three steps: 2016 #IAmNotACriminal campaign → 100K-strong collective → The Living Archive (launched September 2026). Links to About.
 3. **What we do.** The staggered colour blocks from "Inside Edition 01": Stories (powder), Events (yellow), Get involved (red), Resources (slate).
 4. **From The Living Archive.** Compact latest-edition card with a small masthead badge. The only place the masthead style appears outside the archive.
-5. **Events.** Next 2–3 events with date, city and RSVP, or "Get notified" when nothing is scheduled.
-6. **Learn.** Explainer cards drawn from the Instagram highlights (HIV 101, Mental health, Bi, Ace, Aro).
+5. **Learn.** Explainer cards drawn from the Instagram highlights (HIV 101, Mental health, Bi, Ace, Aro).
+6. **Events.** Next 2–3 events with date, city and RSVP, or "Get notified" when nothing is scheduled.
 7. **Faces of FSOG.** Portrait wall or Instagram feed. Consented images only, with a note saying so.
 8. **Numbers and press.** Since 2016, about 101K followers, and the Elle, Homegrown, Outlook Traveller and Man's World logos.
 9. **Get involved.** Share your story (anonymous option), volunteer, partner with us.
@@ -95,7 +111,7 @@ Contact
 
 Open decisions (proposed defaults in brackets):
 
-- Events in slot 5, or lower until the client confirms they run regularly? [slot 5]
+- Events in slot 5, or lower until the client confirms they run regularly? [slot 6, below Learn: Instagram shows no current events]
 - Call the section "Resources" or "Learn"? [Learn]
 - Red is reserved for primary buttons. Can Get involved use it as its section colour? [yes]
 - Hero wording: "queer India" or "South Asia" (as in the Instagram bio)? [South Asia]
